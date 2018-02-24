@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de-DE" >
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width">
+		<meta name="author" content="Chris Deter" />
+		<title>Lernfragen Trainer by Chris</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript">
+    $(document).ready(function () {
+    var questionNumber=0;
+    // Frageformat ['Frage', 'richtigeAntwort', 'weitereAntwort', 'nocheineAntwort', 'nocheineweitereAntwort'],
+    var questionBank= [
+			['Welches der folgenden Ps gehört nicht zu den "4Ps of Innovation Space"','Performance' ,'Paradigm', 'Product', 'Position'],
+			['Was können wir aus dem besprochenen Pixar Fall "Küss den Frosch" lernen?', 'Man sollte auf erfahrene Experten hören', 'Eine Idee ist nur für den Augenblick fest und kann sich jederzeit ändern', 'Prozessoptimierung kann Kreativität und damit Innovation vernichten', '"Research Trips" sind wichtig um eine gute Idee zu entwickeln'],
+			['Welche Quelle der Innovation hat Elvis Presley genutzt?','Recombinate Innovation', 'Design Driven Innovation', 'Watching Others', 'User Innovation'],
+			['Was ist keine Schlüssel Characteristik für Innovationen', 'Normativität', 'Zeit bezüglich des Innovationslebenszyklus', 'Diskontinuität', 'Grad der Neuigkeit von inkrementell zu radikal'],
+			['Searching for Opportunities – Welches ist keine Suchstrategie die in der Vorlesung besprochen wurde?', 'Watching Others ', 'Exploring Multibple Futures', 'Searching the Web', 'Deep diving'],
+			['Welche Innovationsdimension gibt es nicht?', 'Diskontinuierliche Dimension', 'Prozess Dimension', 'Normative Dimension', 'Inhaltliche Dimension'],
+			['Welche Art von Mass Customization gibt es nicht?', 'Product customization', 'Fabrication customization', 'Design customization', 'Assembly customization'],
+			['Was ist keine Methode der Innovationsquelle Watching Others?', 'Recombination', 'Reverse engineering', 'Benchmarking', 'Imitation'],
+			['Zu welchem IDEO Schritt gehört die Methode Brainstorm?', 'Mulitply Stimuli', 'Optimize practicality', 'Gather Stimuli', 'Create concepts'],
+			['Welche Aussage aus der Malincho Fallbesprechung ist richtig?', 'Der Unternehmer hat nur dank Sympathie, hoher Leidenschaft und Glück Erfolg gehabt.', 'Der Unternehmer hat sehr viel Kapital mit seiner ersten Idee verschwendet.', 'Es gab nur einen B Unternehmer, aber ein A Team', 'Das Timing war gut und der Markt musste nicht zunächst bearbeitet werden.'],
+			['Welche der folgenden Antworten ist KEINE Growth Strategy? ', 'Pioneer Strategy', 'Franchising', 'Expaning Product Mix', 'Geographic expansion'],
+			['Welche der folgenden Antworten gehören NICHT zu den „4Ps of Innovation Space?', 'Research', 'Process', 'Position', 'Paradigm'],
+			['Welche der folgenden Antworten gehören NICHT in das Timmons Model?', 'Product', 'Opportunity', 'Resources', 'Entrepreneur'],
+			['Welche der folgenden Antworten sind NICHT Teil von Porter’s Five Forces?', 'Competitors', 'Suppliers', 'Potential entrants', 'Substitutes'],
+			['Leadership -Entrepreneur vs. Manager: Welche der folgenden Aussagen ist falsch?', 'Der Entrepreneur gründet Ideen vom Manager aus', 'Der Manager kümmert sich um das Personal', 'Der Entrepreneur gründet das Unternehmen', 'Der Manager versucht ein Unternehmen so effizient wie möglich zu gestalten'],
+			['Zu welcher Phase im Innovation Life Cycle passt die Kostenreduktion?', 'Spezifischen Phase', 'Transitionalen Phase', 'Fluiden Phase', 'Unspezifischen Phase'],
+			[' Was kann ein Beispiel für einen brillianten Fehler sein?', 'Jobverlust', 'Scheidung', 'Ein Flugzeug verpassen', 'Autounfall'],
+			['Innerhalb eines Unternehmens sorgen Need-Pull-Innovationen oft für', 'Prozessveränderungen', 'Produktveränderungen', 'Kostensteigerung', 'Entlassungen'],
+			['Welche Aussage zu Closed Innovations ist falsch?', 'Das Unternehmen entwickelt Ideen in geschlossenen Arbeitskreisen', 'Das Unternehmen entwickelt eigene Ideen', 'Das Unternehmen entwickelt setzt eigene Ideen um', 'Das Unternehmen entwickelt neue Produkte ohne externe Expertise'],
+			['Welche Aussage zum Bottom of the Pyramid (BoP) ist falsch?', 'BoP besitzt eine Kaufkraftparität von ca. 20 Billionen US', 'BoP ist der unterste Teil der Welteinkommenspyramide', 'BoP umfasst mehr als die Hälfte der Weltbevölkerung', 'BoP-Länder sind Entwicklungs- und Schwellenländer'],
+			['Welche der Antwortmöglichkeiten gehört nicht zu den 4 Ps des Innovation Space?', 'Place', 'Paradigm', 'Process', 'Product'],
+			['Was zeichnet Open Innovation aus?', 'Einbeziehen von Ideen anderer', 'Starke R&D Abteilung', 'Eigenständige Entwicklung von Ideen', 'Limitierte Kommunikation zu Partnern'],
+			['Das Timmons Model beschreibt', 'Kritische Erfolgskomponenten einer Unternehmung', 'Einflüsse auf Unternehmen', 'Kundensegmentierung einer Unternehmung', 'Alleinstellungsmerkmale'],
+			['Business Angel bringen neben ihrem finanziellen Engagement welche zentrale Eigenschaft mit sich?', 'Netzwerk', 'Teamgeist', 'Kontakte zur Konkurrenz', 'Einsatzbereitschaft'],
+			['Was gehört nicht zu den 4 P des Innovationsraums?', 'Preis', 'Position', 'Paradigma', 'Prozess'],
+			['Welche Fehlannahme gibt es in Bezug auf die Bottom of the Pyramid?', 'Die Armen sind schwer zu erreichen.', 'Die Armen sind leicht zu erreichen.', 'Die Armen sind interessiert in neuen Technologien.', 'Die Armen geben kein Geld für Innovatives aus.'],
+			['Welches ist keine wichtige Eigenschaft eines Entrepreneurs?', 'Organisationsfähigkeit', 'Entschlossenheit', 'Hingabe', 'Träume'],
+			['Welches ist kein F eines erfolgreichen Unternehmens?', 'Fertile', 'Founder', 'Fast', 'Frugal'],
+			['Welches ist ein Makrotrend in den letzten 50 Jahren?', 'Übergewichtigkeit', 'Demografischer Wandel', 'Minions', 'Urbanisierung'],
+			['Welches ist kein häufiger Fehler einer Wettbewerber-Analyse?', '“Wettbewerber werden gar nicht bemerken, dass ich da bin - bis es zu spät ist.”', '“Ich habe eine tolle Idee und es gibt KEINE WETTBEWERBER.”', '“Mein größter Wettbewerber ist auch ein Start-Up, ich muss mich also nicht vor Reaktionen fürchten.”', '“Ich bin zu klein, Marktführer interessieren sich nicht für mich.”'],
+			['Welches ist ein Schlüsselelement eines Business Models?', 'Cost Model', 'Financing Model', 'Sales Model', 'Organisation Structure'],
+			['Welche Fragen beschreiben die Dimensionen von Innovationen?', 'Is something new needed? ', 'New for whom?', 'Does new automatically mean successful?', 'What is new?'],
+			['Was gehört nicht zu den Prinzipien des geschlossenen Innovationsmodells?', 'Wenn wir selbst nicht mehr weiterkommen, beobachten wir andere Unternehmen', 'Wenn wir die meisten und besten Ideen der Industrie entwickeln, sind wir die Gewinner', 'Wenn wir etwas selbst entdecken, sind wir die ersten, die es auf den Markt bringen', 'Um von R&D zu profitieren, müssen wir es selbst entdecken, entwickeln und verkaufen '],
+			['Was trifft auf Suchstrategien zu?', 'Prototyping kann bei der Entwicklung helfen', 'Viele Versuche etwas umzusetzen sind teuer und helfen nicht bei der Entwicklung', 'Interviews mit Menschen reichen, um neue Ideen zu entwickeln', 'Das Internet ist keine geeignete Quelle für die Suche, da zu viele falsche Informationen gegeben sind.']
+		 ];
+    var stage="#game1";
+    var stage2=new Object;
+    var questionLock=false;
+    var numberOfQuestions = questionBank.length;
+    var score=0;
+
+    displayQuestion();
+    function displayQuestion(){
+     var rnd=Math.random()*4;
+     rnd=Math.ceil(rnd);
+     var q1;
+     var q2;
+     var q3;
+     var q4;
+     var correct;
+		 var correctGreen = "";
+     correct = questionBank[questionNumber][1];
+     if(rnd==1){q1=questionBank[questionNumber][1];q2=questionBank[questionNumber][2];q3=questionBank[questionNumber][3];q4=questionBank[questionNumber][4];correctGreen="#1";}
+     if(rnd==2){q2=questionBank[questionNumber][1];q3=questionBank[questionNumber][2];q4=questionBank[questionNumber][3];q1=questionBank[questionNumber][4];correctGreen="#2";}
+     if(rnd==3){q3=questionBank[questionNumber][1];q4=questionBank[questionNumber][2];q1=questionBank[questionNumber][3];q2=questionBank[questionNumber][4];correctGreen="#3";}
+     if(rnd==4){q4=questionBank[questionNumber][1];q1=questionBank[questionNumber][2];q2=questionBank[questionNumber][3];q3=questionBank[questionNumber][4];correctGreen="#4";}
+     $(stage).append('<div class="questionText">'+questionBank[questionNumber][0]+'</div><div id="1" class="option">'+q1+'</div><div id="2" class="option">'+q2+'</div><div id="3" class="option">'+q3+'</div><div id="4" class="option">'+q4+'</div>');
+
+     $('.option').click(function(){
+      if(questionLock==false){questionLock=true;
+      //correct answer
+      if(this.id==rnd){
+       $(stage).append('<div class="feedback1">CORRECT</div>');
+       score++;
+       }
+			 $(correctGreen).addClass('green');
+      //wrong answer
+      if(this.id!=rnd){
+       $(stage).append('<div class="feedback2">WRONG - Correct Answer is:'+ correct +'</div>');
+      }
+      setTimeout(function(){changeQuestion()},1000);
+     }})
+    }//display question
+
+    	function changeQuestion(){
+    		questionNumber++;
+    	if(stage=="#game1"){stage2="#game1";stage="#game2";}
+    		else{stage2="#game2";stage="#game1";}
+    	if(questionNumber<numberOfQuestions){displayQuestion();}else{displayFinalSlide();}
+    	 $(stage2).animate({"right": "+=800px"},"slow", function() {$(stage2).css('right','-800px');$(stage2).empty();});
+    	 $(stage).animate({"right": "+=800px"},"slow", function() {questionLock=false;});
+    	}//change question
+
+    	function displayFinalSlide(){
+    		$(stage).append('<div class="questionText">You have finished the quiz!<br><br>Total questions: '+numberOfQuestions+'<br>Correct answers: '+score+'</div>');
+    	}//display final slide
+    	});//doc ready
+    </script>
+    <style>
+    html, body {
+    margin: 0;
+    padding: 0;
+    background-color:#333;
+    font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #navContent{
+    margin:auto;
+    width:800px;
+    height:800px;
+    position:relative;
+    overflow:hidden;
+    }
+
+    #game1{
+    margin:auto;
+    width:800px;
+    right:0px;
+    position:absolute;
+    }
+
+    #game2{
+    margin:auto;
+    width:800px;
+    right:-800px;
+    position:absolute;
+    }
+
+    .questionText{
+    font-size:27px;
+    color:#FFF;
+    }
+
+    .option{width:400px;
+    margin:15px;
+    font-size:18px;
+    color:#FFFFFF;
+    padding:2px;
+    padding-left:10px;
+    border: 2px solid white;
+    cursor:pointer;
+    background-color:#3399FF;
+    }
+
+    .option:hover{
+    border:#FC0 solid 2px;
+    color:#FC0;
+    }
+
+    #topbar{
+    margin:auto;
+    margin-top:50px;
+    color:#FFF;
+    font-size:36px;
+    font-family:Arial, Helvetica, sans-serif;
+    width:800px;
+    border-bottom:solid white 1px;
+    }
+
+    .spacer{
+    height:30px;
+    }
+
+    .feedback1{
+    width:150px;
+    padding:5px;
+    font-size:30px;
+    color:#FFFFCC;
+    background-color:#009900;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align:center;
+    }
+
+    .feedback2{
+    width:450px;
+    padding:5px;
+    font-size:15px;
+    color:#FFFFCC;
+    background-color:#CC3300;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align:center;
+    }
+
+		.green {
+			background-color:green;
+		}
+
+    @media screen and (max-width:800px) {
+    	#topbar{margin-left:1%;margin-right:1%;	width:96%;}
+    	#navContent{margin:1%;	width:98%;}
+    	#game1{margin:1%;	width:98%;}
+    	#game2{margin:1%;	width:98%;}
+    }
+    @media screen and (max-width:460px) {
+    	.option{width:80%;margin:5%;}
+    }
+    </style>
+	</head>
+	<body class="grey">
+    <div id="topbar">Entreprenership und Innovation (WS1718) [34 Fragen] v1.1</div>
+    <div class="spacer"></div>
+    <div id="navContent">
+    <div id="game1"></div>
+    <div id="game2"></div>
+    </div>
+		<a href="index.html">zurück</a>
+	</body>
+</html>

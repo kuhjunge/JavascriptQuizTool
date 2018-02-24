@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="de-DE" >
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width">
+		<meta name="author" content="Chris Deter" />
+		<title>Lernfragen Trainer by Chris</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+    html, body {
+    margin: 0;
+    padding: 0;
+    background-color:#333;
+    font-family: Arial, Helvetica, sans-serif;
+    }
+
+		/* unvisited link */
+		a:link {
+				color: white;
+		}
+
+		/* visited link */
+		a:visited {
+				color: white;
+		}
+
+		/* mouse over link */
+		a:hover {
+				color: hotpink;
+		}
+
+		/* selected link */
+		a:active {
+				color: white;
+		}
+
+    #navContent{
+    margin:auto;
+    width:800px;
+    height:800px;
+    position:relative;
+    overflow:hidden;
+    }
+
+    #game1{
+    margin:auto;
+    width:800px;
+    right:0px;
+    position:absolute;
+    }
+
+    #game2{
+    margin:auto;
+    width:800px;
+    right:-800px;
+    position:absolute;
+    }
+
+    .questionText{
+    font-size:27px;
+    color:#FFF;
+    }
+
+    .option{width:400px;
+    margin:15px;
+    font-size:18px;
+    color:#FFFFFF;
+    padding:2px;
+    padding-left:10px;
+    border: 2px solid white;
+    cursor:pointer;
+    background-color:#3399FF;
+    }
+
+    .option:hover{
+    border:#FC0 solid 2px;
+    color:#FC0;
+    }
+
+    #topbar{
+    margin:auto;
+    margin-top:50px;
+    color:#FFF;
+    font-size:36px;
+    font-family:Arial, Helvetica, sans-serif;
+    width:800px;
+    border-bottom:solid white 1px;
+    }
+
+    .spacer{
+    height:30px;
+    }
+
+    .feedback1{
+    width:150px;
+    padding:5px;
+    font-size:30px;
+    color:#FFFFCC;
+    background-color:#009900;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align:center;
+    }
+
+    .feedback2{
+    width:450px;
+    padding:5px;
+    font-size:15px;
+    color:#FFFFCC;
+    background-color:#CC3300;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align:center;
+    }
+
+		.green {
+			background-color:green;
+		}
+
+    @media screen and (max-width:800px) {
+    	#topbar{margin-left:1%;margin-right:1%;	width:96%;}
+    	#navContent{margin:1%;	width:98%;}
+    	#game1{margin:1%;	width:98%;}
+    	#game2{margin:1%;	width:98%;}
+    }
+    @media screen and (max-width:460px) {
+    	.option{width:80%;margin:5%;}
+    }
+    </style>
+	</head>
+	<body class="grey">
+    <div id="topbar">Prüfungsvorbereitungsfragen</div>
+    <div class="spacer"></div>
+    <div id="navContent">
+			<p><a href="bwl.html">Fragen zu BWL</a></p>
+			<p><a href="entreinnov.html">Fragen zu Entreprenership und Innovation</a></p>
+    <div id="game1"></div>
+    <div id="game2"></div>
+    </div>
+	</body>
+</html>
