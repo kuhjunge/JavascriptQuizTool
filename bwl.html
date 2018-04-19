@@ -6,93 +6,43 @@
 		<meta name="author" content="Chris Deter" />
 		<title>Lernfragen Trainer by Chris</title>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="question.js"></script>
 		<script type="text/javascript">
-    $(document).ready(function () {
-    var questionNumber=0;
-    // Frageformat ['Frage', 'richtigeAntwort', 'weitereAntwort', 'nocheineAntwort', 'nocheineweitereAntwort'],
-    var questionBank= [
-      ["1. Was bedeutet es nach dem Maximumprinzip zu wirtschaften?", "Mit gegebenen Mitteln den größtmöglichen mengenmäßigen Ertrag erzielen zu wollen. ", "Mit unbegrenzten Mitteln den größtmöglichen Ertrag erzielen zu wollen.", "Mit möglichst geringen Mitteln den größtmöglichen Ertrag erzielen zu wollen. ", "Mit möglichst geringen Mitteln einen festgelegten Ertrag erzielen zu wollen. "],
-      ["2. Welches der genannten Güter ist ein Gebrauchsgut? ", "Eine Bohrmaschine in einer Werkstatt.", "Holz in einer Tischlerei.", "Die Arbeit eines Sachbearbeiters bei einer Versicherung. ", "Elektrischer Strom in einem Haushalt."],
-      ["3. Wie berechnet sich die Produktivität?", "Outputmenge durch Inputmenge.", "Inputmenge durch Outputmenge.", "Bewertete Outputmenge durch bewertete Inputmenge.", "Bewertete Inputmenge durch bewertete Outputmenge."],
-      ["4. In welcher der folgenden Organisationsformen ist die Primärorganisation nach Produkten, Kundengruppen oder Regionen strukturiert?", "Divisionale Organisation", "Stablinienorganisation", "Funktionale Organisation", "Matrixorganisation"],
-      ["5. Welche Organisationsform wird gerne angewendet, wenn ein Unternehmen komplexe und neuartige Produkte in einem besonders dynamischen Markt anbietet?", "Modulare Organisation", "Hierarchische Organisation ", "Vernetzte Organisation", "Virtuelle Organisation"],
-      ["6. Welche der folgenden Antwortmöglichkeiten ist keine der 3 Organisationsebenen nach Wöhe?", "Prozesse", "Regelungen", "Strukturen", "Managementtechniken"],
-			['7. <span class="red">[MULTIPE CHOICE]</span> Die Transaktionskostenanalyse ermöglicht Vor- und Nachteile der Eigen- oder Fremdproduktion abzuwägen.  Sie berücksichtigt Kosten, <span class="red">Wähle falsche Antwort! In der Klausur alle richtigen Antworten auswählen</span>', 'um Verbrauchsgüter von der eigenen Fertigungshalle zur Fremdproduktionsstätte zu transportieren.', 'die bei der Information und Kommunikation bezüglich der Organisation und Abwicklung der arbeitsteiligen Prozessen anfallen.', 'für die Suche nach Lieferanten', 'für die Überwachung der Lieferung.'],
-			["8. Opportunitätskosten sind Kosten,", "die dadurch entstehen, dass vorhandene Möglichkeiten nicht wahrgenommen werden und somit Erlöse ausbleiben.", "die im Sinne der Kosten- und Leistungsrechnung im Zusammenhang mit fehlenden Erlösen entstehen.", "die dadurch entstehen, dass die Unternehmensführung sich nicht politisch opportun verhält.", "die durch Impulskäufe der Unternehmensinhaber entstehen."],
-      ["9. Bei einer Kommanditgesellschafft (KG) gilt folgendes:", "Komplementäre haften unbeschränkt und persönlich, während Kommanditisten ebenfalls persönlich haften, aber nur mit der Höhe der Einlage. Deswegen haben Kommanditisten beschränktes Mitspracherecht.", "Komplementäre haften unbeschränkt und persönlich, während Kommanditisten ebenfalls persönlich haften, aber nur mit der Höhe der Einlage. Trotzdem haben Kommanditisten volles Mitspracherecht.", "Kommanditisten haften unbeschränkt und persönlich, während Komplementäre ebenfalls persönlich haften, aber nur mit der Höhe der Einlage. Deswegen haben Komplementäre beschränktes Mitspracherecht.", "Kommanditisten haften unbeschränkt und persönlich, während Komplementäre ebenfalls persönlich haften, aber nur mit der Höhe der Einlage. Trotzdem haben Komplementäre volles Mitspracherecht."],
-      ["10. Welcher Teil gehört zur Aktivseite der Bilanz?", "Vermögen", "Gewinn", "Verlust", "Kapital"],
-			['11. <span class="red">[MULTIPE CHOICE]</span> Die Ziele von Kapitalflussrechnungen bzw. Geldflussrechnungen sind:', 'Steuerung von Liquidität / Information über Finanzlage', 'Imageverbesserung / Übersicht über Passiva', '-', '-'],
-			['12. <span class="red">[MULTIPE CHOICE]</span> Der Cashflow eines Unternehmens setzt sich zusammen aus:', 'Auszahlungen / Einzahlungen', 'Verlusten / Gewinne', '-', '-'],
-			['13. <span class="red">[MULTIPE CHOICE]</span> Welche der Kostenarten sind fixe Gemeinkosten in Produktionsbetrieben?', 'Miete / Verwaltung', 'Energie / Material', '-', '-'],
-			['14. <span class="red">[MULTIPE CHOICE]</span> Was sind die Hauptfunktionen der Kostenrechnung?', 'Verteilung von Gemeinkosten auf Objekte / Verteilung bestimmter Kosten auf Objekte', 'Verteilung von Einzelkosten auf Objekte / Verteilung von Kostenarten auf Leistungen', '-', '-'],
-			['15. <span class="red">[MULTIPE CHOICE]</span> Benenne Aufgaben der Kostenträgerrechnung <span class="red">Wähle falsche Antwort! In der Klausur alle richtigen Antworten auswählen</span>', 'Gewinnschwellenanalyse', 'Dokumentationsfunktion', 'Kalkulation', 'Planungsfunktion'],
-			["16. Die goldene Bilanzregel sagt etwas aus über die Beziehung zwischen...?", "Eigenkapital und Anlagevermögen.", "Eigenkapital und Fremdkapital.", "Fremdkapital und Umlaufvermögen", "Umlaufvermögen und Anlagevermögen."],
-			['17. <span class="red">[MULTIPE CHOICE]</span> Benenne Eigenschaften von Investitionen! <span class="red">Wähle falsche Antwort! In der Klausur alle richtigen Antworten auswählen</span>', 'kurzfristig gebunden', 'Risikobehaftet', 'langfristig gebunden', 'hoher Kapitaleinsatz'],
-			['18. <span class="red">[MULTIPE CHOICE]</span> Um welche Finanzierungsformen handelt es sich, wenn Aktionäre einer AG beschließen, 10.000€ vom Gewinn einzubehalten?', 'Eigenfinanzierung / Innenfinanzierung', 'Beteiligungsfinanzierung / Kreditfinanzierung', '-', '-'],
-			["19.Was beschreibt die Söldner-Mentalität im Kontext der behandeltenInhaltstheorien?", "Nach Herzberg einen schlecht motivierten Mitarbeiter bei erfüllten Hygienefaktoren.", "Nach Alderfer die Progression zu einem höheren Bedürfnis, wenn ein niedrigeres auf Dauer nicht erfüllt wird", "Nach Maslow die Erfüllung der niedrigen Bedürfnisse (Grundbedürfnisse und Sicherheit)", "Nach MacClelland eine Mischung aus Leistungs- und Machtmotivation"],
-			['20. <span class="red">[MULTIPE CHOICE] </span> Welche der folgenden Aussagen über die einzelnen Inhaltstheorien sind korrekt?', 'Nach der ERG-Theorie können unerfüllte Bedürfnisskategorien übersprungen werden. / Um die langfristige Zufriedenheit eines Mitarbeiters zu ermöglichen, müssen nach Herzberg Hygienefaktoren erfüllt sein.', 'Die Ordnung der Bedürfnisse nach Maslow wird in späteren Theorien bestätigt. / Nach McClelland verfügt jeder Mitarbeiter über eine statische Mischung der drei Motivgruppen: Machtmotivation, soziale Anschlussmotivation und Leistungsmotivation.', '-', '-'],
-			["21. Bei welchen der folgenden Faktoren handelt es sich nach Herzberg um Motivatoren?", "Erfolgsanerkennung", "Entgelt", "Arbeitsatmosphäre", "Arbeitsplatzsicherheit"],
-      ["22. Was stellen Prozesstheorien in den Vordergrund?", "Kognitive Prozesse", "Organisatorische Prozesse", "Führungsprozesse", "Emotionale Prozesse"],
-      ["23. Was betrachtet die Gerechtigkeitstheorie von Adams?", "Wie gerecht sich einzelne Personen im Vergleich zu anderen behandelt fühlen", "Wie gerecht Prozesse in einem Unternehmen verteilt sind.", "Wie gerecht die Organisationsstruktur an einem Arbeitsplatz ist.", "Wie gerecht die Löhne eines Unternehmens verteilt sind."],
-			['24. <span class="red">[MULTIPE CHOICE]</span>  Welche Aussagen zur Selbstwirksamkeitstheorie von Bandura sind korrekt? Je höher die Selbstwirksamkeit,', 'desto höher ist das Vertrauen in die eigenen Fähigkeiten. / desto mehr wird geleistet, um ein Ziel zu erreichen.', 'desto besser ist das Ergebnis. / desto wirksamer sind die Leistungen.', '-', '-'],
-			["25. Wie zeichnen sich die Instrumente des HRM in der Geschäftsfeldstrategie Differenzierungsstrategie aus?", "Umfassende/ systematische Personalentwicklung; Flexibler Personaleinsatz; Erfolgs und qualifikationsorientierte Entlohnung; Hohes Entgeltniveau; mitarbeiterorientiert.", "Umfassende/ systematische Personalentwicklung; Flexibler Personaleinsatz; Erfolgs und qualifikationsorientierte Entlohnung; Hohes Entgeltniveau; aufgabenorientiert.", "Häufige Personalfreisetzungen; Flexibler Personaleinsatz; Anforderungs- und erfolgsorientierte Entlohnung; Mittleres Entgeltniveau; aufgabenorientiert.", "-"],
-      ["26. Welche der folgenden Aussagen bezüglich der Nachteile des Outsoucings von Personaldienstleistungen (PDL) ist richtig?","Durch Outsourcing von PDL besteht die Gefahr des Know-How-Verlustes der Personalabteilung.", "Durch Outsourcing von PDL wird die Flexibilität bei der Gestaltung von Weiterbildungsmaßnahmen gesenkt.", "Durch Outsourcing von PDL unterliegt das Unternehmen Auslastungsschwankungen und es entstehen fixe Kosten.", "Durch Outsourcing von wenig spezialisierten PDL-Aufgaben entstehen hohe Transaktionskosten."],
-      ["27. Welche der Fragen sind in einem Vorstellungsgespräch einer Buchhalterin zulässig?", "Fragen zur Qualifikation und Sprachkenntnissen.", "Fragen bezüglich der Gewerkschaftszugehörigkeit.", "Die Frage über eine schwere Behinderungen, die die Tätigkeit nicht beeinflusst.", "Die Frage über eine bestehende Schwangerschaft."],
-      ["28. Welcher Effekt in Vorstellungsgesprächen lässt uns den Bewerber aufgrund einer einzigen positiven oder negativen Eigenschaft beurteilen?", "Halo-Effekt", "Ähnlichkeitsphänomen", "Primacy-Effekt", "Kontrast-Effekt"],
-      ["29. Welches sind Methoden der Aus- und Weiterbildung, die während des Jobs (on the job) durchgeführt werden können?","systematische Unterweisung", "Qualitätszirkel",  "Schrittweise, vorübergehende Übernahme von Tätigkeiten", "Outplacement"],
-			['30. <span class="red">[MULTIPE CHOICE]</span> Welche Vorteile bietet die Gruppenarbeit?', 'Abbau von Monotonie / eine höhere Risikofreude als in Einzelarbeit', 'geringerer Konformitätsdruck / Schnellere Entscheidungsfindung', '-', '-']
-    ];
-    var stage="#game1";
-    var stage2=new Object;
-    var questionLock=false;
-    var numberOfQuestions = questionBank.length;
-    var score=0;
-
-    displayQuestion();
-    function displayQuestion(){
-     var rnd=Math.random()*4;
-     rnd=Math.ceil(rnd);
-     var q1;
-     var q2;
-     var q3;
-     var q4;
-     var correct;
-		 var correctGreen = "";
-     correct = questionBank[questionNumber][1];
-     if(rnd==1){q1=questionBank[questionNumber][1];q2=questionBank[questionNumber][2];q3=questionBank[questionNumber][3];q4=questionBank[questionNumber][4];correctGreen="#1";}
-     if(rnd==2){q2=questionBank[questionNumber][1];q3=questionBank[questionNumber][2];q4=questionBank[questionNumber][3];q1=questionBank[questionNumber][4];correctGreen="#2";}
-     if(rnd==3){q3=questionBank[questionNumber][1];q4=questionBank[questionNumber][2];q1=questionBank[questionNumber][3];q2=questionBank[questionNumber][4];correctGreen="#3";}
-     if(rnd==4){q4=questionBank[questionNumber][1];q1=questionBank[questionNumber][2];q2=questionBank[questionNumber][3];q3=questionBank[questionNumber][4];correctGreen="#4";}
-     $(stage).append('<div class="questionText">'+questionBank[questionNumber][0]+'</div><div id="1" class="option">'+q1+'</div><div id="2" class="option">'+q2+'</div><div id="3" class="option">'+q3+'</div><div id="4" class="option">'+q4+'</div>');
-
-     $('.option').click(function(){
-      if(questionLock==false){questionLock=true;
-      //correct answer
-      if(this.id==rnd){
-       $(stage).append('<div class="feedback1">CORRECT</div>');
-       score++;
-       }
-			 $(correctGreen).addClass('green');
-      //wrong answer
-      if(this.id!=rnd){
-       $(stage).append('<div class="feedback2">WRONG - Correct Answer is:'+ correct +'</div>');
-      }
-      setTimeout(function(){changeQuestion()},1000);
-     }})
-    }//display question
-
-    	function changeQuestion(){
-    		questionNumber++;
-    	if(stage=="#game1"){stage2="#game1";stage="#game2";}
-    		else{stage2="#game2";stage="#game1";}
-    	if(questionNumber<numberOfQuestions){displayQuestion();}else{displayFinalSlide();}
-    	 $(stage2).animate({"right": "+=800px"},"slow", function() {$(stage2).css('right','-800px');$(stage2).empty();});
-    	 $(stage).animate({"right": "+=800px"},"slow", function() {questionLock=false;});
-    	}//change question
-
-    	function displayFinalSlide(){
-    		$(stage).append('<div class="questionText">You have finished the quiz!<br><br>Total questions: '+numberOfQuestions+'<br>Correct answers: '+score+'</div>');
-    	}//display final slide
+		 // Frageformat ['Frage', 'richtigeAntwort', 'weitereAntwort', 'nocheineAntwort', 'nocheineweitereAntwort'],
+		var questions = [
+		  ["1. Was bedeutet es nach dem Maximumprinzip zu wirtschaften?", "Mit gegebenen Mitteln den größtmöglichen mengenmäßigen Ertrag erzielen zu wollen. ", "Mit unbegrenzten Mitteln den größtmöglichen Ertrag erzielen zu wollen.", "Mit möglichst geringen Mitteln den größtmöglichen Ertrag erzielen zu wollen. ", "Mit möglichst geringen Mitteln einen festgelegten Ertrag erzielen zu wollen. "],
+		  ["2. Welches der genannten Güter ist ein Gebrauchsgut? ", "Eine Bohrmaschine in einer Werkstatt.", "Holz in einer Tischlerei.", "Die Arbeit eines Sachbearbeiters bei einer Versicherung. ", "Elektrischer Strom in einem Haushalt."],
+		  ["3. Wie berechnet sich die Produktivität?", "Outputmenge durch Inputmenge.", "Inputmenge durch Outputmenge.", "Bewertete Outputmenge durch bewertete Inputmenge.", "Bewertete Inputmenge durch bewertete Outputmenge."],
+		  ["4. In welcher der folgenden Organisationsformen ist die Primärorganisation nach Produkten, Kundengruppen oder Regionen strukturiert?", "Divisionale Organisation", "Stablinienorganisation", "Funktionale Organisation", "Matrixorganisation"],
+		  ["5. Welche Organisationsform wird gerne angewendet, wenn ein Unternehmen komplexe und neuartige Produkte in einem besonders dynamischen Markt anbietet?", "Modulare Organisation", "Hierarchische Organisation ", "Vernetzte Organisation", "Virtuelle Organisation"],
+		  ["6. Welche der folgenden Antwortmöglichkeiten ist keine der 3 Organisationsebenen nach Wöhe?", "Prozesse", "Regelungen", "Strukturen", "Managementtechniken"],
+		  ['7. <span class="red">[MULTIPE CHOICE]</span> Die Transaktionskostenanalyse ermöglicht Vor- und Nachteile der Eigen- oder Fremdproduktion abzuwägen.  Sie berücksichtigt Kosten, <span class="red">Wähle falsche Antwort! In der Klausur alle richtigen Antworten auswählen</span>', 'um Verbrauchsgüter von der eigenen Fertigungshalle zur Fremdproduktionsstätte zu transportieren.', 'die bei der Information und Kommunikation bezüglich der Organisation und Abwicklung der arbeitsteiligen Prozessen anfallen.', 'für die Suche nach Lieferanten', 'für die Überwachung der Lieferung.'],
+		  ["8. Opportunitätskosten sind Kosten,", "die dadurch entstehen, dass vorhandene Möglichkeiten nicht wahrgenommen werden und somit Erlöse ausbleiben.", "die im Sinne der Kosten- und Leistungsrechnung im Zusammenhang mit fehlenden Erlösen entstehen.", "die dadurch entstehen, dass die Unternehmensführung sich nicht politisch opportun verhält.", "die durch Impulskäufe der Unternehmensinhaber entstehen."],
+		  ["9. Bei einer Kommanditgesellschafft (KG) gilt folgendes:", "Komplementäre haften unbeschränkt und persönlich, während Kommanditisten ebenfalls persönlich haften, aber nur mit der Höhe der Einlage. Deswegen haben Kommanditisten beschränktes Mitspracherecht.", "Komplementäre haften unbeschränkt und persönlich, während Kommanditisten ebenfalls persönlich haften, aber nur mit der Höhe der Einlage. Trotzdem haben Kommanditisten volles Mitspracherecht.", "Kommanditisten haften unbeschränkt und persönlich, während Komplementäre ebenfalls persönlich haften, aber nur mit der Höhe der Einlage. Deswegen haben Komplementäre beschränktes Mitspracherecht.", "Kommanditisten haften unbeschränkt und persönlich, während Komplementäre ebenfalls persönlich haften, aber nur mit der Höhe der Einlage. Trotzdem haben Komplementäre volles Mitspracherecht."],
+		  ["10. Welcher Teil gehört zur Aktivseite der Bilanz?", "Vermögen", "Gewinn", "Verlust", "Kapital"],
+		  ['11. <span class="red">[MULTIPE CHOICE]</span> Die Ziele von Kapitalflussrechnungen bzw. Geldflussrechnungen sind:', 'Steuerung von Liquidität / Information über Finanzlage', 'Imageverbesserung / Übersicht über Passiva'],
+		  ['12. <span class="red">[MULTIPE CHOICE]</span> Der Cashflow eines Unternehmens setzt sich zusammen aus:', 'Auszahlungen / Einzahlungen', 'Verlusten / Gewinne'],
+		  ['13. <span class="red">[MULTIPE CHOICE]</span> Welche der Kostenarten sind fixe Gemeinkosten in Produktionsbetrieben?', 'Miete / Verwaltung', 'Energie / Material'],
+		  ['14. <span class="red">[MULTIPE CHOICE]</span> Was sind die Hauptfunktionen der Kostenrechnung?', 'Verteilung von Gemeinkosten auf Objekte / Verteilung bestimmter Kosten auf Objekte', 'Verteilung von Einzelkosten auf Objekte / Verteilung von Kostenarten auf Leistungen'],
+		  ['15. <span class="red">[MULTIPE CHOICE]</span> Benenne Aufgaben der Kostenträgerrechnung <span class="red">Wähle falsche Antwort! In der Klausur alle richtigen Antworten auswählen</span>', 'Gewinnschwellenanalyse', 'Dokumentationsfunktion', 'Kalkulation', 'Planungsfunktion'],
+		  ["16. Die goldene Bilanzregel sagt etwas aus über die Beziehung zwischen...?", "Eigenkapital und Anlagevermögen.", "Eigenkapital und Fremdkapital.", "Fremdkapital und Umlaufvermögen", "Umlaufvermögen und Anlagevermögen."],
+		  ['17. <span class="red">[MULTIPE CHOICE]</span> Benenne Eigenschaften von Investitionen! <span class="red">Wähle falsche Antwort! In der Klausur alle richtigen Antworten auswählen</span>', 'kurzfristig gebunden', 'Risikobehaftet', 'langfristig gebunden', 'hoher Kapitaleinsatz'],
+		  ['18. <span class="red">[MULTIPE CHOICE]</span> Um welche Finanzierungsformen handelt es sich, wenn Aktionäre einer AG beschließen, 10.000€ vom Gewinn einzubehalten?', 'Eigenfinanzierung / Innenfinanzierung', 'Beteiligungsfinanzierung / Kreditfinanzierung'],
+		  ["19.Was beschreibt die Söldner-Mentalität im Kontext der behandeltenInhaltstheorien?", "Nach Herzberg einen schlecht motivierten Mitarbeiter bei erfüllten Hygienefaktoren.", "Nach Alderfer die Progression zu einem höheren Bedürfnis, wenn ein niedrigeres auf Dauer nicht erfüllt wird", "Nach Maslow die Erfüllung der niedrigen Bedürfnisse (Grundbedürfnisse und Sicherheit)", "Nach MacClelland eine Mischung aus Leistungs- und Machtmotivation"],
+		  ['20. <span class="red">[MULTIPE CHOICE] </span> Welche der folgenden Aussagen über die einzelnen Inhaltstheorien sind korrekt?', 'Nach der ERG-Theorie können unerfüllte Bedürfnisskategorien übersprungen werden. / Um die langfristige Zufriedenheit eines Mitarbeiters zu ermöglichen, müssen nach Herzberg Hygienefaktoren erfüllt sein.', 'Die Ordnung der Bedürfnisse nach Maslow wird in späteren Theorien bestätigt. / Nach McClelland verfügt jeder Mitarbeiter über eine statische Mischung der drei Motivgruppen: Machtmotivation, soziale Anschlussmotivation und Leistungsmotivation.'],
+		  ["21. Bei welchen der folgenden Faktoren handelt es sich nach Herzberg um Motivatoren?", "Erfolgsanerkennung", "Entgelt", "Arbeitsatmosphäre", "Arbeitsplatzsicherheit"],
+		  ["22. Was stellen Prozesstheorien in den Vordergrund?", "Kognitive Prozesse", "Organisatorische Prozesse", "Führungsprozesse", "Emotionale Prozesse"],
+		  ["23. Was betrachtet die Gerechtigkeitstheorie von Adams?", "Wie gerecht sich einzelne Personen im Vergleich zu anderen behandelt fühlen", "Wie gerecht Prozesse in einem Unternehmen verteilt sind.", "Wie gerecht die Organisationsstruktur an einem Arbeitsplatz ist.", "Wie gerecht die Löhne eines Unternehmens verteilt sind."],
+		  ['24. <span class="red">[MULTIPE CHOICE]</span>  Welche Aussagen zur Selbstwirksamkeitstheorie von Bandura sind korrekt? Je höher die Selbstwirksamkeit,', 'desto höher ist das Vertrauen in die eigenen Fähigkeiten. / desto mehr wird geleistet, um ein Ziel zu erreichen.', 'desto besser ist das Ergebnis. / desto wirksamer sind die Leistungen.'],
+		  ["25. Wie zeichnen sich die Instrumente des HRM in der Geschäftsfeldstrategie Differenzierungsstrategie aus?", "Umfassende/ systematische Personalentwicklung; Flexibler Personaleinsatz; Erfolgs und qualifikationsorientierte Entlohnung; Hohes Entgeltniveau; mitarbeiterorientiert.", "Umfassende/ systematische Personalentwicklung; Flexibler Personaleinsatz; Erfolgs und qualifikationsorientierte Entlohnung; Hohes Entgeltniveau; aufgabenorientiert.", "Häufige Personalfreisetzungen; Flexibler Personaleinsatz; Anforderungs- und erfolgsorientierte Entlohnung; Mittleres Entgeltniveau; aufgabenorientiert."],
+		  ["26. Welche der folgenden Aussagen bezüglich der Nachteile des Outsoucings von Personaldienstleistungen (PDL) ist richtig?","Durch Outsourcing von PDL besteht die Gefahr des Know-How-Verlustes der Personalabteilung.", "Durch Outsourcing von PDL wird die Flexibilität bei der Gestaltung von Weiterbildungsmaßnahmen gesenkt.", "Durch Outsourcing von PDL unterliegt das Unternehmen Auslastungsschwankungen und es entstehen fixe Kosten.", "Durch Outsourcing von wenig spezialisierten PDL-Aufgaben entstehen hohe Transaktionskosten."],
+		  ["27. Welche der Fragen sind in einem Vorstellungsgespräch einer Buchhalterin zulässig?", "Fragen zur Qualifikation und Sprachkenntnissen.", "Fragen bezüglich der Gewerkschaftszugehörigkeit.", "Die Frage über eine schwere Behinderungen, die die Tätigkeit nicht beeinflusst.", "Die Frage über eine bestehende Schwangerschaft."],
+		  ["28. Welcher Effekt in Vorstellungsgesprächen lässt uns den Bewerber aufgrund einer einzigen positiven oder negativen Eigenschaft beurteilen?", "Halo-Effekt", "Ähnlichkeitsphänomen", "Primacy-Effekt", "Kontrast-Effekt"],
+		  ["29. Welches sind Methoden der Aus- und Weiterbildung, die während des Jobs (on the job) durchgeführt werden können?","systematische Unterweisung", "Qualitätszirkel",  "Schrittweise, vorübergehende Übernahme von Tätigkeiten", "Outplacement"],
+		  ['30. <span class="red">[MULTIPE CHOICE]</span> Welche Vorteile bietet die Gruppenarbeit?', 'Abbau von Monotonie / eine höhere Risikofreude als in Einzelarbeit', 'geringerer Konformitätsdruck / Schnellere Entscheidungsfindung']
+		];
+		$(document).ready(function () {
+			startQuiz(questions);
     	});//doc ready
     </script>
     <style>
@@ -199,7 +149,7 @@
     </style>
 	</head>
 	<body class="grey">
-    <div id="topbar">BWL Trainer v1.2</div>
+    <div id="topbar">BWL Trainer v1.3</div>
     <div class="spacer"></div>
     <div id="navContent">
     <div id="game1"></div>

@@ -6,11 +6,10 @@
 		<meta name="author" content="Chris Deter" />
 		<title>Lernfragen Trainer by Chris</title>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="question.js"></script>
 		<script type="text/javascript">
-    $(document).ready(function () {
-    var questionNumber=0;
-    // Frageformat ['Frage', 'richtigeAntwort', 'weitereAntwort', 'nocheineAntwort', 'nocheineweitereAntwort'],
-    var questionBank= [
+		 // Frageformat ['Frage', 'richtigeAntwort', 'weitereAntwort', 'nocheineAntwort', 'nocheineweitereAntwort'],
+		var questions = [
 			['Welches der folgenden Ps gehört nicht zu den "4Ps of Innovation Space"','Performance' ,'Paradigm', 'Product', 'Position'],
 			['Was können wir aus dem besprochenen Pixar Fall "Küss den Frosch" lernen?', 'Man sollte auf erfahrene Experten hören', 'Eine Idee ist nur für den Augenblick fest und kann sich jederzeit ändern', 'Prozessoptimierung kann Kreativität und damit Innovation vernichten', '"Research Trips" sind wichtig um eine gute Idee zu entwickeln'],
 			['Welche Quelle der Innovation hat Elvis Presley genutzt?','Recombinate Innovation', 'Design Driven Innovation', 'Watching Others', 'User Innovation'],
@@ -45,58 +44,9 @@
 			['Welche Fragen beschreiben die Dimensionen von Innovationen?', 'Is something new needed? ', 'New for whom?', 'Does new automatically mean successful?', 'What is new?'],
 			['Was gehört nicht zu den Prinzipien des geschlossenen Innovationsmodells?', 'Wenn wir selbst nicht mehr weiterkommen, beobachten wir andere Unternehmen', 'Wenn wir die meisten und besten Ideen der Industrie entwickeln, sind wir die Gewinner', 'Wenn wir etwas selbst entdecken, sind wir die ersten, die es auf den Markt bringen', 'Um von R&D zu profitieren, müssen wir es selbst entdecken, entwickeln und verkaufen '],
 			['Was trifft auf Suchstrategien zu?', 'Prototyping kann bei der Entwicklung helfen', 'Viele Versuche etwas umzusetzen sind teuer und helfen nicht bei der Entwicklung', 'Interviews mit Menschen reichen, um neue Ideen zu entwickeln', 'Das Internet ist keine geeignete Quelle für die Suche, da zu viele falsche Informationen gegeben sind.']
-		 ];
-    var stage="#game1";
-    var stage2=new Object;
-    var questionLock=false;
-    var numberOfQuestions = questionBank.length;
-    var score=0;
-
-    displayQuestion();
-    function displayQuestion(){
-     var rnd=Math.random()*4;
-     rnd=Math.ceil(rnd);
-     var q1;
-     var q2;
-     var q3;
-     var q4;
-     var correct;
-		 var correctGreen = "";
-     correct = questionBank[questionNumber][1];
-     if(rnd==1){q1=questionBank[questionNumber][1];q2=questionBank[questionNumber][2];q3=questionBank[questionNumber][3];q4=questionBank[questionNumber][4];correctGreen="#1";}
-     if(rnd==2){q2=questionBank[questionNumber][1];q3=questionBank[questionNumber][2];q4=questionBank[questionNumber][3];q1=questionBank[questionNumber][4];correctGreen="#2";}
-     if(rnd==3){q3=questionBank[questionNumber][1];q4=questionBank[questionNumber][2];q1=questionBank[questionNumber][3];q2=questionBank[questionNumber][4];correctGreen="#3";}
-     if(rnd==4){q4=questionBank[questionNumber][1];q1=questionBank[questionNumber][2];q2=questionBank[questionNumber][3];q3=questionBank[questionNumber][4];correctGreen="#4";}
-     $(stage).append('<div class="questionText">'+questionBank[questionNumber][0]+'</div><div id="1" class="option">'+q1+'</div><div id="2" class="option">'+q2+'</div><div id="3" class="option">'+q3+'</div><div id="4" class="option">'+q4+'</div>');
-
-     $('.option').click(function(){
-      if(questionLock==false){questionLock=true;
-      //correct answer
-      if(this.id==rnd){
-       $(stage).append('<div class="feedback1">CORRECT</div>');
-       score++;
-       }
-			 $(correctGreen).addClass('green');
-      //wrong answer
-      if(this.id!=rnd){
-       $(stage).append('<div class="feedback2">WRONG - Correct Answer is:'+ correct +'</div>');
-      }
-      setTimeout(function(){changeQuestion()},1000);
-     }})
-    }//display question
-
-    	function changeQuestion(){
-    		questionNumber++;
-    	if(stage=="#game1"){stage2="#game1";stage="#game2";}
-    		else{stage2="#game2";stage="#game1";}
-    	if(questionNumber<numberOfQuestions){displayQuestion();}else{displayFinalSlide();}
-    	 $(stage2).animate({"right": "+=800px"},"slow", function() {$(stage2).css('right','-800px');$(stage2).empty();});
-    	 $(stage).animate({"right": "+=800px"},"slow", function() {questionLock=false;});
-    	}//change question
-
-    	function displayFinalSlide(){
-    		$(stage).append('<div class="questionText">You have finished the quiz!<br><br>Total questions: '+numberOfQuestions+'<br>Correct answers: '+score+'</div>');
-    	}//display final slide
+		 		];
+		$(document).ready(function () {
+			startQuiz(questions);
     	});//doc ready
     </script>
     <style>
@@ -200,7 +150,7 @@
     </style>
 	</head>
 	<body class="grey">
-    <div id="topbar">Entreprenership und Innovation (WS1718) [34 Fragen] v1.1</div>
+    <div id="topbar">Entreprenership und Innovation (WS1718) [34 Fragen] v1.2</div>
     <div class="spacer"></div>
     <div id="navContent">
     <div id="game1"></div>
